@@ -32,7 +32,7 @@ export default class PhonePage {
   }
 
   _render() {
-     
+     console.log()
     this._element.innerHTML = `
       <div class="row">
       <div class="col-md-2">
@@ -62,10 +62,9 @@ export default class PhonePage {
       </div>
 
       <div class="col-md-10">
+      
         <div data-component="data-phone-viewer"></div>
         <div data-component="data-phone-catalog"></div>
-        
-        
         
       </div>
     </div>`
