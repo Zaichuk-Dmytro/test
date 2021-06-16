@@ -1,27 +1,32 @@
 import Comnponent from "./component.js";
 
 export default class PhoneViewer extends Comnponent{
-  constructor({
-    element,
-    buttonBack = () => {}
-  }) {
+  constructor({ element }) {
     super({ element });
-    this.buttonBack = buttonBack;
+     
+    this.on('click', '[data-element="button-back"]', () => {
+      this.emit('back')
+    })
+
+    this.on('click', '[data-element="small-preview"]', (event) => {
+      let bigImgSrc = this._element.querySelector('[data-element="big-preview"]')
+      bigImgSrc.src = event.target.src
+     // 
+    })
   }
-  
+   
   show(phoneDetails) {
     this._phoneDetails = phoneDetails;
     this._render();
     super.show();
-    this._element.querySelector('[data-element="button-back"]').addEventListener('click', (event) => {
-      this.buttonBack()
-    })
+    console.log(this._element)
   } 
 
   _render() {
     
     this._element.innerHTML =`
       <img
+      data-element="big-preview"
       class="phone"
       src="${this._phoneDetails.images[0]}"
       alt="Motorola XOOM™ with Wi-Fi"
@@ -41,24 +46,14 @@ export default class PhoneViewer extends Comnponent{
       </p>
 
       <ul class="phone-thumbs">
+        ${this._phoneDetails.images.map(imageUrl => `
         <li>
-          <img src="img/phones/motorola-xoom-with-wi-fi.0.jpg" alt="" />
-        </li>
-        <li>
-          <img src="img/phones/motorola-xoom-with-wi-fi.1.jpg" alt="" />
-        </li>
-        <li>
-          <img src="img/phones/motorola-xoom-with-wi-fi.2.jpg" alt="" />
-        </li>
-        <li>
-          <img src="img/phones/motorola-xoom-with-wi-fi.3.jpg" alt="" />
-        </li>
-        <li>
-          <img src="img/phones/motorola-xoom-with-wi-fi.4.jpg" alt="" />
-        </li>
-        <li>
-          <img src="img/phones/motorola-xoom-with-wi-fi.5.jpg" alt="" />
-        </li>
+          <img src="${imageUrl}" alt="" data-element="small-preview"/>
+        </li>`
+        
+        ).join('')
+      }  
+        
       </ul>
       `
   }
