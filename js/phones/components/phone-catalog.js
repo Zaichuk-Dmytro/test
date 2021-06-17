@@ -11,33 +11,40 @@ export default class PhonesCatalog extends Component{
     this.on('click', '[data-element="datails-link"]', (event) => {
       let phoneEl = event.target.closest('[data-element="phone-element"]');
       let phoneId = phoneEl.dataset.phoneId;
+      
       this.emit('phone-selected', phoneId)
     })
     
+    this.on('click', '[data-element="button-add"]', (event) => {
+      let phoneEl = event.target.closest('[data-element="phone-element"]')
+      let phoneId = phoneEl.dataset.phoneId;
+      this.emit('add', phoneId)
+    })
   }
 
    
 
 
   _render() {
-    // console.log(this._element)
     this._element.innerHTML = `
-      <ul class="phones">
+      <ul class="catalog-phone">
       ${
         this._phones.map(phone => `
-          <li class="thumbnail" data-element="phone-element" data-phone-id=${phone.id}>
-            <a href="#!/phones/motorola-xoom-with-wi-fi" class="thumb" >
-              <img alt="${phone.name}" src="${phone.imageUrl}" data-element="datails-link" />
-            </a>
-
-            <div class="phones__btn-buy-wrapper">
-              <a class="btn btn-success" href="#buy">
-                Add
+          <li class="phone-card" data-element="phone-element" data-phone-id=${phone.id}>
+            <div class="phone-card-img">
+              <a href="#!/phones/motorola-xoom-with-wi-fi"  >
+                <img alt="" src="${phone.imageUrl}" data-element="datails-link" />
               </a>
             </div>
-
-            <a href="#!/phones/motorola-xoom-with-wi-fi" data-element="datails-link">${phone.name}</a>
-            <p>${phone.snippet}</p>
+            <div class="phone-card-content">
+              <a class="phone-card-name" href="#!/phones/motorola-xoom-with-wi-fi" data-element="datails-link">${phone.name}</a>
+              <p class="phone-card-text" >${phone.snippet}</p>
+              <div class="phone-card-action">
+                <a class="phone-card-action-buy" href="#buy" data-element="button-add">
+                  Add
+                </a>
+              </div>
+            </div>
           </li>
         `).join('')
       }

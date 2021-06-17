@@ -11,7 +11,12 @@ export default class PhoneViewer extends Comnponent{
     this.on('click', '[data-element="small-preview"]', (event) => {
       let bigImgSrc = this._element.querySelector('[data-element="big-preview"]')
       bigImgSrc.src = event.target.src
-     // 
+    })
+
+    this.on('click', '[data-element="button-add"]', (event) => {
+      let phoneEl = event.target.closest('[data-element="phone-element"]')
+      let phoneId = phoneEl.dataset.phoneId;
+      this.emit('add', phoneId)  
     })
   }
    
@@ -23,7 +28,6 @@ export default class PhoneViewer extends Comnponent{
   } 
 
   _render() {
-    
     this._element.innerHTML =`
       <img
       data-element="big-preview"
@@ -33,7 +37,7 @@ export default class PhoneViewer extends Comnponent{
       />
 
       <button data-element="button-back" type="button">Back</button>
-      <button type="button">Add to basket</button>
+      <button  data-element="button-add" type="button" >Add to basket</button>
 
       <h1>${this._phoneDetails.name}</h1>
 

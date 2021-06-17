@@ -15,15 +15,25 @@ export default class Comnponent {
   }
 
   emit(eventName, data) {
-    let callback = this._callbackMap[eventName];
-    if (!callback) {
-      return;
+    if(!this._callbackMap[eventName]) {
+      return
     }
-    callback(data);
+    this._callbackMap[eventName].forEach(el => el(data))
   }
 
   subscribe(eventName, callback) {
-    this._callbackMap[eventName] = callback
+    if (!this._callbackMap[eventName]) {
+      this._callbackMap[eventName] = [];
+    }
+    this._callbackMap[eventName].push(callback);
+  }
+
+  unsubcribe(eventName, callbackToRemove) {
+    this._callbackMap[eventName].map((el, index) => {
+      if(el == callbackToRemove) {
+        this._callbackMap[eventName].splice(index, 1)
+      }
+    })
   }
 
   hide() {
