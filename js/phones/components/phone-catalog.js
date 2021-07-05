@@ -1,17 +1,14 @@
 import Component from './component.js';
 export default class PhonesCatalog extends Component{
-  constructor({
-    element,
-    phones = [],
-  }) {
+  constructor({ element }) {
     super({ element })
-    this._phones = phones;
+    this._phones = [];
+    
     this._render();
 
     this.on('click', '[data-element="datails-link"]', (event) => {
       let phoneEl = event.target.closest('[data-element="phone-element"]');
       let phoneId = phoneEl.dataset.phoneId;
-      
       this.emit('phone-selected', phoneId)
     })
     
@@ -22,7 +19,11 @@ export default class PhonesCatalog extends Component{
     })
   }
 
-   
+   _show(phones) {
+    this._phones = phones;
+    super.show()
+    this._render();
+   }
 
 
   _render() {

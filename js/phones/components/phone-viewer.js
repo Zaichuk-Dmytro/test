@@ -14,9 +14,8 @@ export default class PhoneViewer extends Comnponent{
     })
 
     this.on('click', '[data-element="button-add"]', (event) => {
-      let phoneEl = event.target.closest('[data-element="phone-element"]')
-      let phoneId = phoneEl.dataset.phoneId;
-      this.emit('add', phoneId)  
+      let phoneName = this._phoneDetails.name
+      this.emit('add', phoneName)  
     })
   }
    
