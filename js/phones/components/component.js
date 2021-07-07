@@ -41,6 +41,6 @@ export default class Comnponent {
   }
 
   show() {
-    this._element.hidden = false;
+   this._element.hidden = false;
   }
 } 

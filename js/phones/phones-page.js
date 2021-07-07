@@ -17,18 +17,19 @@ export default class PhonePage {
     
   }
 
-  _initCatalog() {
+   _initCatalog() {
     this._catalog = new PhonesCatalog ({
       element: this._element.querySelector('[data-component="data-phone-catalog"]'),
     })
     
     this._showPhones()
 
-    this._catalog.subscribe('phone-selected', (id) => {
-      let phoneDetails = PhonesService.getById(id);
+     this._catalog.subscribe('phone-selected', async (id) => {
+      let phonedetails = await PhonesService.getById(id)
       
-        this._catalog.hide();
-        this._viewer.show(phoneDetails);
+      console.log(phonedetails)
+      this._catalog.hide();
+      this._viewer.show(phonedetails);
     })
 
     this._catalog.subscribe('add', (phoneId) => {
@@ -44,8 +45,11 @@ export default class PhonePage {
     })
 
     this._viewer.subscribe('back', () => {
-      this._catalog.show();
+     
       this._viewer.hide();
+      this._catalog.show()
+     
+      
     })
 
     this._viewer.subscribe ('add', (phoneName) => {
@@ -74,10 +78,9 @@ export default class PhonePage {
     }))
   }
     
-  _showPhones() {
+  async _showPhones() {
     this._currentFiltered = this._search.getCurrent();
-    let phones = PhonesService.getAll(this._currentFiltered)
-    console.log('Searting phones for criteria:', this._currentFiltered)
+    let phones = await PhonesService.getAll(this._currentFiltered)
     this._catalog._show(phones)
     
   }

@@ -23,7 +23,7 @@ export default class PhoneViewer extends Comnponent{
     this._phoneDetails = phoneDetails;
     this._render();
     super.show();
-    console.log(this._element)
+    
   } 
 
   _render() {

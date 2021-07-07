@@ -23,32 +23,23 @@ export default class PhoneCart extends Comnponent {
       if (!this._carsObj[idObj]) {
         delete this._carsObj[idObj]
       }
-      
-      
-
-      
       this._render()
-    
     })
-    
+
     this._render();
   }
 
   showNewListCart(phoneName) {
   this._carsObj[phoneName] = (this._carsObj[phoneName] || 0) + 1
-   
- 
     this._render()
   }
 
   _render() {
    // console.log(this._cartsArr)
-   this._element.innerHTML = `
-    <p class="shoping-cart-name">Shopping Cart</p>
-    <ul class="shopping-cart-items">
-      ${[...Object.entries(this._carsObj)].map(el => `<li class="shopping-cart-item"><span>${el[0]}</span><span><button idPhone="${el[0]}" data-element="buttonMinus">-</button> </span> <span> ${el[1]} </span><span><button idPhone="${el[0]}" data-element="buttonPlus">+</button><span><button idPhone="${el[0]}" data-element="buttonX">X</button></span></span></li>`).join('')}
-    </ul>` 
-      
+    this._element.innerHTML = `
+      <p class="shoping-cart-name">Shopping Cart</p>
+      <ul class="shopping-cart-items">
+        ${[...Object.entries(this._carsObj)].map(el => `<li class="shopping-cart-item"><span>${el[0]}</span><span><button idPhone="${el[0]}" data-element="buttonMinus">-</button> </span> <span> ${el[1]} </span><span><button idPhone="${el[0]}" data-element="buttonPlus">+</button><span><button idPhone="${el[0]}" data-element="buttonX">X</button></span></span></li>`).join('')}
+      </ul>` 
   }
 }
-//<img src="img/korz.png">-
